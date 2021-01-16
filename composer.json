@@ -2,6 +2,16 @@
     "name": "aphproach/container",
     "description": "A service container for PHP 8.0+",
     "type": "library",
+    "autoload": {
+        "psr-4": {
+            "aphproach\\container\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "aphproach\\container\\tests\\": "tests/"
+        }
+    },
     "require": {
         "aphproach/enumerations": "^1.0"
     },
