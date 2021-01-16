@@ -1,0 +1,18 @@
+{
+    "name": "aphproach/container",
+    "description": "A service container for PHP 8.0+",
+    "type": "library",
+    "require": {
+        "aphproach/enumerations": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Romano Schoonheim",
+            "email": "romano@romanoschoonheim.nl"
+        }
+    ]
+}
