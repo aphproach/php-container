@@ -3,6 +3,7 @@
 namespace aphproach\container\tests\Unit\Helpers;
 
 use aphproach\container\tests\Fixtures\Helpers\Container\ObjectWithAutowire;
+use aphproach\container\tests\Fixtures\Helpers\Container\ObjectWithInject;
 use aphproach\container\tests\Fixtures\Helpers\Container\PlainOldPhpObject;
 use aphproach\container\tests\Fixtures\Helpers\Container\PlainOldPhpObjectWithArguments;
 use aphproach\container\tests\TestCase;
@@ -14,11 +15,22 @@ use aphproach\container\tests\TestCase;
 final class ContainerTest extends TestCase
 {
     /** @test */
+    public function it_can_create_a_class_with_inject(): void
+    {
+        $result = make(ObjectWithInject::class);
+
+        $this->assertInstanceOf(ObjectWithInject::class, $result);
+        $this->assertEquals('Hello, world!', $result->getFromDependency());
+    }
+
+    /** @test */
     public function it_can_create_a_class_with_auto_wire(): void
     {
+        /** @var ObjectWithAutowire $result */
         $result = make(ObjectWithAutowire::class);
 
         $this->assertInstanceOf(ObjectWithAutowire::class, $result);
+        $this->assertEquals('Hello, world!', $result->getFromDependency());
     }
 
     /** @test */

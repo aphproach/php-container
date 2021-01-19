@@ -31,11 +31,29 @@ class Factory
     {
         $bluePrint = $this->blueprintFactory->create($abstract);
 
-        if ($bluePrint->isAutoWired()) {
+        $abstract = $bluePrint->getAbstract();
+        $object = new $abstract();
 
+        if ($bluePrint->isAutoWired()) {
+            $reflection = new \ReflectionObject($object);
+            foreach ($reflection->getProperties() as $property) {
+                $property->setAccessible(true);
+                $property->setValue($object, $this->make($property->getType()->getName()));
+                $property->setAccessible(false);
+            }
         }
 
-        return new $abstract();
+        if (!$bluePrint->isAutoWired() && $bluePrint->getInjections()) {
+            $reflection = new \ReflectionObject($object);
+            foreach ($bluePrint->getInjections() as $injection) {
+                $property = $reflection->getProperty($injection['property']);
+                $property->setAccessible(true);
+                $property->setValue($object, $this->make($injection['abstract']));
+                $property->setAccessible(false);
+            }
+        }
+
+        return $object;
     }
 
     /**

@@ -8,7 +8,7 @@ namespace aphproach\container\Attributes;
  * @package aphproach\container\Attributes
  * @author Romano Schoonheim <romano@romanoschoonheim.nl>
  */
-final class Inject
+#[\Attribute] class Inject
 {
     private string $abstract;
 

@@ -52,16 +52,18 @@ class BlueprintFactory
     {
         foreach ($abstract->getProperties() as $property) {
             foreach ($property->getAttributes() as $attribute) {
+
                 if ($attribute->getName() == "aphproach\container\Attributes\Inject") {
                     /** @var Inject $inject */
                     $inject = $attribute->newInstance();
-                    $bluePrintState[] = [
+                    $bluePrintState['injections'][] = [
                         'property' => $property->getName(),
                         'abstract' => $inject->getAbstract()
                     ];
                 }
             }
         }
+
         return $bluePrintState;
     }
 
