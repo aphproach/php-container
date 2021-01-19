@@ -10,7 +10,7 @@ namespace aphproach\container\Attributes;
  * @package aphproach\container\Attributes
  * @author Romano Schoonheim <romano@romanoschoonheim.nl>
  */
-final class AutoWire
+#[\Attribute] class AutoWire
 {
     private bool $autoWire;
 

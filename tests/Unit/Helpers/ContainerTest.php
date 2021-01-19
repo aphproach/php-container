@@ -2,6 +2,7 @@
 
 namespace aphproach\container\tests\Unit\Helpers;
 
+use aphproach\container\tests\Fixtures\Helpers\Container\ObjectWithAutowire;
 use aphproach\container\tests\Fixtures\Helpers\Container\PlainOldPhpObject;
 use aphproach\container\tests\Fixtures\Helpers\Container\PlainOldPhpObjectWithArguments;
 use aphproach\container\tests\TestCase;
@@ -12,6 +13,14 @@ use aphproach\container\tests\TestCase;
  */
 final class ContainerTest extends TestCase
 {
+    /** @test */
+    public function it_can_create_a_class_with_auto_wire(): void
+    {
+        $result = make(ObjectWithAutowire::class);
+
+        $this->assertInstanceOf(ObjectWithAutowire::class, $result);
+    }
+
     /** @test */
     public function it_can_create_a_plain_old_php_object_with_arguments(): void
     {

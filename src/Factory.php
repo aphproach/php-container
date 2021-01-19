@@ -2,6 +2,7 @@
 
 namespace aphproach\container;
 
+use aphproach\container\Blueprint\BlueprintFactory;
 use ReflectionClass;
 use ReflectionException;
 
@@ -10,16 +11,30 @@ use ReflectionException;
  * @package aphproach\container
  * @author Romano Schoonheim <romano@romanoschoonheim.nl>
  */
-abstract class Factory
+class Factory
 {
+    private BlueprintFactory $blueprintFactory;
+
+    public function __construct()
+    {
+        $this->blueprintFactory = new BlueprintFactory();
+    }
+
     /**
      * Make a new instance of given object.
      *
-     * @param string $object
+     * @param string $abstract
+     *
      * @return object
      */
-    public static function make(string $abstract): object
+    public function make(string $abstract): object
     {
+        $bluePrint = $this->blueprintFactory->create($abstract);
+
+        if ($bluePrint->isAutoWired()) {
+
+        }
+
         return new $abstract();
     }
 
@@ -32,7 +47,7 @@ abstract class Factory
      * @return object
      * @throws ReflectionException
      */
-    public static function makeWithArguments(string $abstract, array $arguments): object
+    public function makeWithArguments(string $abstract, array $arguments): object
     {
         $reflectionClass = new ReflectionClass($abstract);
         return $reflectionClass->newInstanceArgs($arguments);
