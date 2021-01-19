@@ -12,19 +12,15 @@ namespace aphproach\container\Attributes;
  */
 final class AutoWire
 {
-    private array $properties;
+    private bool $autoWire;
 
-    /**
-     * AutoWire constructor.
-     * @param array $properties
-     */
-    public function __construct(array $properties)
+    public function __construct(bool $autoWire = false)
     {
-        $this->properties = $properties;
+        $this->autoWire = $autoWire;
     }
 
-    public function getProperties(): array
+    public function shouldAutoWire(): bool
     {
-        return $this->properties;
+        return $this->autoWire;
     }
 }
