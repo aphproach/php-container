@@ -2,6 +2,9 @@
 
 namespace aphproach\container;
 
+use ReflectionClass;
+use ReflectionException;
+
 /**
  * Class Factory
  * @package aphproach\container
@@ -15,8 +18,23 @@ abstract class Factory
      * @param string $object
      * @return object
      */
-    public static function make(string $object): object
+    public static function make(string $abstract): object
     {
-        return new $object();
+        return new $abstract();
+    }
+
+    /**
+     * Make a new instance of a object with arguments.
+     *
+     * @param string $abstract
+     * @param array $arguments
+     *
+     * @return object
+     * @throws ReflectionException
+     */
+    public static function makeWithArguments(string $abstract, array $arguments): object
+    {
+        $reflectionClass = new ReflectionClass($abstract);
+        return $reflectionClass->newInstanceArgs($arguments);
     }
 }
