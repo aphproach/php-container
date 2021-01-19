@@ -3,6 +3,9 @@
     "description": "A service container for PHP 8.0+",
     "type": "library",
     "autoload": {
+        "files": [
+            "src/Helpers/Container.php"
+        ],
         "psr-4": {
             "aphproach\\container\\": "src/"
         }
