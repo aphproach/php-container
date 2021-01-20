@@ -4,6 +4,7 @@ namespace aphproach\container\Blueprint;
 
 use aphproach\container\Attributes\Inject;
 use aphproach\container\Blueprint\Objects\Blueprint;
+use aphproach\container\Enumerations\AutoWire;
 use ReflectionClass;
 use ReflectionException;
 
@@ -19,17 +20,14 @@ class BlueprintFactory
      */
     public function create(string $abstract): Blueprint
     {
-        // probs need some cache..
-
         $bluePrintState = [
-            'autowire' => false,
+            'autowire' => AutoWire::DEFAULT_STATE,
             'injections' => []
         ];
 
         $reflection = new ReflectionClass($abstract);
 
         $bluePrintState = $this->shouldAbstractAutoWire($reflection, $bluePrintState);
-
         if (!$bluePrintState['autowire']) {
             $bluePrintState = $this->extractInjectables($reflection, $bluePrintState);
         }
