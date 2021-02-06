@@ -13,7 +13,8 @@
         }
     },
     "require": {
-        "aphproach/enumerations": "^1.0"
+        "aphproach/enumerations": "^1.0",
+        "symfony/yaml": "^5.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5"

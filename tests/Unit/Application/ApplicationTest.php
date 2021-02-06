@@ -4,10 +4,10 @@ namespace aphproach\container\tests\Unit\Application;
 
 use aphproach\container\Application\Application;
 use aphproach\container\tests\TestCase;
+use Symfony\Component\Yaml\Exception\ParseException;
 
 class ApplicationTest extends TestCase
 {
-
     /** @test */
     public function i_want_to_be_able_to_provide_a_service_configuration(): void
     {
@@ -15,7 +15,26 @@ class ApplicationTest extends TestCase
 
         $application = new Application();
 
-        $application->register($serviceYaml);
+        $this->assertNull(
+            $application->register($serviceYaml)
+        );
+    }
+
+    /** @test */
+    public function when_the_provided_service_yaml_path_does_not_exist_throw_a_parse_exception(): void
+    {
+        $serviceYaml = 'random-path-that-does-not-exist';
+
+        $application = new Application();
+
+        $this->expectException(ParseException::class);
+        $this->expectExceptionMessage(
+            'File "random-path-that-does-not-exist" does not exist.'
+        );
+
+        $this->assertNull(
+            $application->register($serviceYaml)
+        );
     }
 
     /** @test */
