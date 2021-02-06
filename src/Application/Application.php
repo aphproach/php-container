@@ -2,6 +2,7 @@
 
 namespace aphproach\container\Application;
 
+use aphproach\container\Application\Exceptions\InvalidServiceConfigurationException;
 use Symfony\Component\Yaml\Parser;
 
 class Application
@@ -19,7 +20,15 @@ class Application
     {
         $serviceConfiguration = $this->yamlParser->parseFile(
             $serviceConfigurationYamlPath
-        )['Service'];
+        );
+
+        if (!array_key_exists('Service', $serviceConfiguration)) {
+            throw new InvalidServiceConfigurationException(
+                'A service configuration yaml should start with service. File: ' . $serviceConfigurationYamlPath
+            );
+        }
+
+        $serviceConfiguration = $serviceConfiguration['Service'];
 
         $this->serviceConfiguration[$serviceConfiguration['name']] = $serviceConfiguration;
     }

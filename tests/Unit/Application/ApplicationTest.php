@@ -3,11 +3,27 @@
 namespace aphproach\container\tests\Unit\Application;
 
 use aphproach\container\Application\Application;
+use aphproach\container\Application\Exceptions\InvalidServiceConfigurationException;
 use aphproach\container\tests\TestCase;
 use Symfony\Component\Yaml\Exception\ParseException;
 
 class ApplicationTest extends TestCase
 {
+    /** @test */
+    public function when_the_provided_service_configuration_is_invalid_a_invalid_service_configuration_exception_is_thrown(): void
+    {
+        $serviceYaml = __DIR__ . '/../../Fixtures/Invalid-service-configuration.yaml';
+
+        $application = new Application();
+
+        $this->expectException(InvalidServiceConfigurationException::class);
+        $this->expectExceptionMessage(
+            'A service configuration yaml should start with service. File: ' . $serviceYaml
+        );
+
+        $application->register($serviceYaml);
+    }
+
     /** @test */
     public function i_want_to_be_able_to_provide_a_service_configuration(): void
     {
