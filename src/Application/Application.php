@@ -16,6 +16,14 @@ class Application
         $this->yamlParser = new Parser();
     }
 
+    /**
+     * Register a service configuration to the container.
+     *
+     * @param string $serviceConfigurationYamlPath
+     * @throws InvalidServiceConfigurationException
+     *
+     * @return void
+     */
     public function register(string $serviceConfigurationYamlPath): void
     {
         $serviceConfiguration = $this->yamlParser->parseFile(
