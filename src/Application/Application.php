@@ -20,9 +20,9 @@ class Application
      * Register a service configuration to the container.
      *
      * @param string $serviceConfigurationYamlPath
+     * @return void
      * @throws InvalidServiceConfigurationException
      *
-     * @return void
      */
     public function register(string $serviceConfigurationYamlPath): void
     {
@@ -39,5 +39,12 @@ class Application
         $serviceConfiguration = $serviceConfiguration['Service'];
 
         $this->serviceConfiguration[$serviceConfiguration['name']] = $serviceConfiguration;
+    }
+
+    public function get(string $name): object
+    {
+        $class = $this->serviceConfiguration[$name]['class'];
+
+        return new $class();
     }
 }
